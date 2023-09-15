@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Hola mundo</h1>
+    <p>Este es un párrafo</p>
+    <p>Este es otro párrafo</p>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="contact.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <form action="/saludo" method="GET">
+        <input type="text" name="nombre" placeholder="Nombre">
+        <input type="submit" value="Enviar">
+    </form>
+    <hr />
+    <form action="/saludo" method="POST" enctype="application/x-www-form-urlencoded">
+        <input type="text" name="nombre" placeholder="Nombre">
+        <input type="submit" value="Enviar">
+    </form>
+   
+</body>
+</html>
