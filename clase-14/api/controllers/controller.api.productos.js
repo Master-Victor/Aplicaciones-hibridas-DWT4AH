@@ -1,4 +1,5 @@
 import * as service from "../../services/productos.services.js";
+import yup from "yup";
 
 const getProductos = (req, res) => {
   const filter = req.query;
@@ -17,21 +18,32 @@ const getProductoById = (req, res) => {
     }
   });
 };
+const cafeSchema = yup.object({
+  name: yup.string().required(),
+  price: yup.number().required(),
+  description: yup.string().required(),
+  tags: yup.array().of(yup.string()).required(),
+});
 
-const agregarProducto = (req, res) => {
+const agregarProducto = async (req, res) => {
   const producto = {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    tags: req.body.tags
+    tags: req.body.tags,
   };
+  try {
+    const productoValidado = await cafeSchema.validate(req.body);
+    service
+      .createProducto(productoValidado)
+      .then((productoNuevo) => {
+        res.status(201).json(productoNuevo);
+      })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json()
+  }
 
-  service
-    .createProducto(producto)
-    .then((productoNuevo) => {
-      res.status(201).json(productoNuevo);
-    })
-    .catch((error) => res.status(500).json());
 };
 //PUT -> REEMPLAZA
 const remplazarProducto = (req, res) => {
@@ -41,7 +53,7 @@ const remplazarProducto = (req, res) => {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    tags: req.body.tags
+    tags: req.body.tags,
   };
 
   service.remplazarProducto(id, producto).then((productoEditado) => {
@@ -70,8 +82,8 @@ const actualizarProducto = (req, res) => {
     product.description = req.body.description;
   }
 
-  if( req.body.tags ){
-    product.tags = req.body.tags
+  if (req.body.tags) {
+    product.tags = req.body.tags;
   }
 
   service.editProducto(id, product).then((productoEditado) => {
