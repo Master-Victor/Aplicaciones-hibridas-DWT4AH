@@ -1,0 +1,20 @@
+.error-404-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.error-404-page h1{
+    font-size: 5rem;
+    font-weight: bold;
+    color: #999;
+    text-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.error-404-page p{
+    font-size: 1.5rem;
+    color: #999;
+    text-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
