@@ -1,0 +1,25 @@
+Paso 1: Crea tu clúster en MongoDB Atlas
+
+1. Regístrate o inicia sesión en tu cuenta de MongoDB Atlas.
+2. Crea un nuevo proyecto y, dentro de ese proyecto, crea un nuevo clúster. Puedes seleccionar el tipo de clúster gratuito M0 para empezar.
+	Espera a que se complete el despliegue de tu clúster.
+
+Paso 2: Configura la lista blanca de tu IP y crea un usuario de MongoDB
+
+1. En la sección "Network Access" dentro de "Security", haz clic en "Add IP Address".
+2. Para permitir conexiones desde cualquier dirección IP (no recomendado para producción), ingresa 0.0.0.0/0. Para solo tu IP, haz clic en "Add Current IP Address".
+3. Ve a la sección "Database Access" dentro de "Security" y haz clic en "Add New Database User". Crea un nombre de usuario y una contraseña. Toma nota de ellos ya que los necesitarás para conectarte desde MongoDB Compass.
+
+Paso 3: Conéctate usando MongoDB Compass
+
+1. Si aún no lo has hecho, descarga e instala MongoDB Compass.
+2. Abre MongoDB Compass.
+3. Vuelve a MongoDB Atlas y en el panel de tu clúster, haz clic en "Connect".
+4. En la ventana emergente, selecciona "Connect using MongoDB Compass".
+5. Copia la cadena de conexión que aparece.
+6. Regresa a MongoDB Compass y, en la pantalla de inicio, pega la cadena de conexión en el campo "Paste your connection string".
+7. Modifica <username> y <password> en la cadena de conexión con el nombre de usuario y contraseña que creaste en el paso 2.3.
+8. Haz clic en "Connect".
+9. ¡Eso es todo! Ahora deberías estar conectado a tu clúster de MongoDB Atlas a través de MongoDB Compass y podrás explorar y administrar tus bases de datos y colecciones.
+
+Nota: Asegúrate de mantener segura la información de tu cuenta y la cadena de conexión, y de seguir las mejores prácticas para la seguridad de bases de datos en producción.
