@@ -2,7 +2,7 @@ import * as service from "../../services/productos.services.js";
 
 const getProductos = (req, res) => {
   const filter = req.query;
-
+  console.log(req.cuenta)
   service.getProductos(filter).then((productos) => {
     res.status(200).json(productos);
   });

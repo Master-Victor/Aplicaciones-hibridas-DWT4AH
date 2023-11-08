@@ -2,6 +2,7 @@ import { Router } from 'express'
 import * as controllers from '../controllers/controller.api.productos.js'
 import routeOpinion from './route.api.producto_opinion.js'
 import { validateProducto, validateProductoPatch } from '../../middleware/producto.validate.middleware.js'
+import { validateToken } from '../../middleware/token.validate.middleware.js'
 
 const route = Router()
 
@@ -11,11 +12,11 @@ const route = Router()
 }
 route.use('/productos'. todos)*/
 //traer todos los productos
-route.get('/productos',controllers.getProductos)
+route.get('/productos',[validateToken],controllers.getProductos)
 //traer un producto especifico
-route.get('/productos/:id', controllers.getProductoById)
+route.get('/productos/:id',[validateToken], controllers.getProductoById)
 
-route.all('/productos/:id',function todos(req, res, next) {
+route.all('/productos/:id',[validateToken],function todos(req, res, next) {
     console.log("tengo un rol valido" )
     next()
 })
