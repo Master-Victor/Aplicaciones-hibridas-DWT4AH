@@ -17,17 +17,42 @@ const io = new SocketIO(server, {
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("Un cliente se ha conectado", socket.id);
+// io.on("connection", (socket) => {
+//   console.log("Un cliente se ha conectado", socket.id);
 
-  socket.on("mensaje", (data) => {
-    console.log("mi mensaje",data);
-    io.emit("mensaje", "Desde el servidor: "+data);
+//   socket.on("mensaje", (data) => {
+//     console.log("mi mensaje",data);
+//     io.emit("mensaje", "Desde el servidor: "+data);
+//   })
+
+//   io.on("disconnect", () => {
+//     console.log("El cliente se ha desconectado");
+//   });
+// });
+const usuarios = {}   //SERIA MEJOR EN UNA BASE DE DATOS
+io.on("connection", (socket) => {
+  console.log("NUEVO CLIENTE CONECTADO", socket.id);
+
+  socket.on("nuevo-usuario", (nombre) => {
+    console.log("nuevo-usuario", nombre)
+    usuarios[nombre] = socket.id;
+    socket.broadcast.emit("nuevo-usuario", nombre);
+    socket.username = nombre;
+  });
+
+  socket.on("mensaje", ({ msg, username }) => {
+    if( usuarios[username] ){
+      socket.to(usuarios[username]).emit("mensaje", { msg, username: socket.username })
+    }else{
+      socket.emit("mensaje", { msg: "El usuario no existe", username: "" });
+    }
   })
 
-  io.on("disconnect", () => {
+  socket.on("disconnect", (username) => {
     console.log("El cliente se ha desconectado");
+    delete usuarios[username];
   });
+
 });
 
 const storage = multer.diskStorage({
